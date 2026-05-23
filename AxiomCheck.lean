@@ -1,0 +1,4 @@
+import SIDEGRHTransfer.CharacterTransfer
+#print axioms SIDEGRHTransfer.twisted_balance_at_unramified_prime
+#print axioms SIDEGRHTransfer.twisted_balance_at_half
+#print axioms SIDEGRHTransfer.balance_theorem
