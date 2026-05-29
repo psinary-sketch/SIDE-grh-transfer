@@ -1,4 +1,7 @@
 import SIDEGRHTransfer.CharacterTransfer
+import SIDEGRHTransfer.CharacterSymmetry
 #print axioms SIDEGRHTransfer.twisted_balance_at_unramified_prime
 #print axioms SIDEGRHTransfer.twisted_balance_at_half
 #print axioms SIDEGRHTransfer.balance_theorem
+#print axioms SIDEGRHTransfer.paired_reflection_axis_invariant_iff
+#print axioms SIDEGRHTransfer.paired_conjugation_real_axis_agree_iff
