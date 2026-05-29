@@ -1,6 +1,6 @@
 # SIDE-grh-transfer
 
-Lean 4 kernel for the **complete seven-voice chorus** of GRH transfer — all seven mechanism-class voices of the SIDE method, faithfully transferred from ξ(s) to L(s, χ) via Mathlib's `DirichletCharacter` API.
+Lean 4 kernel for the **complete seven-voice chorus + SIDE structural exhaustiveness for L(s, χ)** of GRH transfer — all seven mechanism-class voices of the SIDE method, transferred from ξ(s) to L(s, χ) via Mathlib's `DirichletCharacter` API, and assembled through Ostrowski's classification into the composite SIDE structural exhaustiveness theorem mirroring `SIDE-kernel/Bridge/TheBridgeComplete.lean`.
 
 **J. York Seale** — https://orcid.org/0009-0008-7993-0310
 
@@ -38,13 +38,19 @@ For any pair (χ, χbar), the σ on which the spectral offset δ = σ − 1/2 va
 ### Voice7 (topological inertness, paired form) — `CharacterTopological.lean`
 
 **Structurally inverted from voices 1/2/3/3b/5/6.** For any pair (χ, χbar), the topological contribution to zero-placement is σ-INDEPENDENT — constant in σ. Where the other six voices each prove `iff σ = 1/2` (their mechanism forces zeros to the critical line), Voice7 proves σ-INERTNESS: the topological class cannot place zeros at any specific σ. The Hadamard product / argument principle COUNTS zeros and RELATES locations to growth, but does not PREFER any σ. Together with the other six, this gives chorus exhaustiveness: every mechanism class is either forcing σ = 1/2 or incapable of placing a zero anywhere.
+### GRHBridge (composite SIDE structural exhaustiveness for L(s, χ)) — `GRHBridge.lean`
+
+**New in v0.5.0.** The seven-voice paired chorus assembled with Ostrowski's classification into the SIDE structural exhaustiveness statement for L(s, χ). The bridge defines the seven mechanism classes (`MechanismClass` enum: `C1_schwarz` through `C7_hadamard`), the per-class `produces_offline_chi` algebraic signature each mechanism would imprint at an off-line zero, the seven per-class exclusion theorems (`c1_chi_exclusion` through `c7_chi_exclusion`) each invoking the corresponding v0.4.0 paired voice theorem, the `none_produce_chi` combiner, the χ-independent `ostrowski_exhaustive_chi` (since the places of ℚ don't depend on χ), and the three-conjunct `GRHStructuralExhaustiveness` proposition discharged by **`grh_structural_exhaustiveness_proved`**.
+Mirrors `structural_exhaustiveness_proved` in `SIDE-kernel/Bridge/TheBridgeComplete.lean` on the ξ side — the SIDE-method's voice in Lean for L(s, χ). The kernel now witnesses, end-to-end, the seven-voice + Ostrowski SIDE structural exhaustiveness statement for any pair of Dirichlet characters (χ, χbar) mod n.
+
 ## Scope
 
-This is the **complete seven-voice chorus** of the GRH transfer — six iff-σ=1/2 voices (Voice1 + Voice2-paired + Voice3-paired + Voice3b-paired + Voice5-paired + Voice6-paired) plus one σ-inert voice (Voice7-paired) for chorus exhaustiveness. The remaining open work for full GRH closure is the **exhaustiveness/exclusion architecture transfer** — a separate downstream target, not a voice transfer.
+This is the **complete seven-voice chorus + composite SIDE structural exhaustiveness theorem** for the GRH transfer — six iff-σ=1/2 voices (Voice1 + Voice2-paired + Voice3-paired + Voice3b-paired + Voice5-paired + Voice6-paired) plus one σ-inert voice (Voice7-paired) for chorus exhaustiveness, all wired through Ostrowski's classification of absolute values on ℚ into the composite `grh_structural_exhaustiveness_proved` theorem.
 
-GRH as a whole — that L(s, χ) has no off-line zeros — requires all seven voices transferred (now ✓) *and* the exhaustiveness/exclusion architecture transferred (open). Closing this kernel now closes all 7 voices for L(s, χ); only the exclusion architecture remains.
-**Spec note.** Voice3b/Voice5/Voice6 (v0.3.0) and Voice7 (v0.4.0) transfers are **not enumerated in `LEAN_VERIFICATIONS_TODO_v0_1.md`** — only LV-H-6 (Voice3 + Voice2 paired) was specifically flagged by the audit-arc. The chorus-completion framing is the author's broader research direction beyond the specced compile-list; these voices were transferred because the algebraic core was tractable (pure real-axis algebra, no heavy Mathlib infrastructure needed) and the design pattern (vendor + typed-paired delegation) had been established by LV-H-6.
+The SIDE structural exhaustiveness statement for L(s, χ) is now kernel-verified: 7 mechanism classes, none produces an off-line zero, Ostrowski exhausts the places. The "exhaustiveness/exclusion architecture transfer" named as open in v0.4.0 is **closed in v0.5.0**.
+**Remaining open work** (v0.6.0): the Conservation-based Route 3 analog — paired-form Conservation of Spectra for L(s, χ) delivering `(h_cons : ConservationHypothesisChi) → RiemannHypothesisChi` in the Wiles+Hales pattern (mirroring `SIDE-kernel/Bridge/ConservationBridge.lean` on the ξ side). Separate downstream target, not blocking the structural exhaustiveness theorem just delivered.
 
+**Spec note.** Voice3b/Voice5/Voice6 (v0.3.0), Voice7 (v0.4.0), and the GRHBridge composite assembly (v0.5.0) are **not enumerated in `LEAN_VERIFICATIONS_TODO_v0_1.md`** — only LV-H-6 (Voice3 + Voice2 paired) was specifically flagged by the audit-arc. The chorus-completion + composite-assembly framing is the author's broader research direction beyond the specced compile-list; these were transferred because the algebraic core was tractable and the design pattern (vendor + typed-paired delegation + SIDE syllogism assembly) had been established by LV-H-6 and the SIDE-kernel ξ-side bridge.
 ## Build
 
 ```bash
@@ -53,19 +59,22 @@ cd SIDE-grh-transfer
 lake exe cache get   # downloads pre-built Mathlib oleans from upstream CI cache
 lake build           # compiles only this kernel's modules; Mathlib comes from cache
 ```
+
 **Toolchain** pinned in `lean-toolchain`: `leanprover/lean4:v4.29.1`.
 **Mathlib** pinned in `lakefile.lean` to the released stable tag **`v4.29.1`** at commit `5e932f97dd25535344f80f9dd8da3aab83df0fe6` of `leanprover-community/mathlib4`. Cache coverage is complete (upstream CI publishes oleans for every released tag); reproduction does not require a local Mathlib build.
 
 The Mathlib lemmas the proofs depend on:
-
 **Voice1 (`CharacterTransfer.lean`):**
 - `DirichletCharacter.unit_norm_eq_one` (`Mathlib/NumberTheory/DirichletCharacter/Bounds.lean:27`) — the value at a unit has norm 1, proved via `pow_card_eq_one'` (the standard root-of-unity argument).
 - `ZMod.isUnit_prime_of_not_dvd` (`Mathlib/Data/ZMod/Basic.lean:824`) — for `p` prime and `¬ p ∣ n`, `(p : ZMod n)` is a unit.
+
 **Voice3/Voice2 paired (`CharacterSymmetry.lean`):**
 - `Complex.sub_re`, `Complex.one_re`, `Complex.ofReal_re` (`Mathlib/Data/Complex/Basic.lean`) — standard real-part computations for complex arithmetic. Used inside `simp` to reduce `(1 - (σ : ℂ)).re` to `1 - σ`.
-
 **Voice3b/Voice5/Voice6/Voice7 paired (`CharacterCodim.lean`, `CharacterModular.lean`, `CharacterSpectral.lean`, `CharacterTopological.lean`):**
 - Substance files import `Mathlib.Data.Complex.Basic` and `Mathlib.NumberTheory.DirichletCharacter.Basic` for the typed (χ, χbar) signature; algebraic core (`cr_minimal_iff`, `S_fixed_point`, `offset_zero_iff`, `topological_no_sigma_preference`) is real-axis arithmetic provable by `linarith` / `ring` / `omega` / `rfl`, no further Mathlib infrastructure required.
+
+**GRHBridge (`GRHBridge.lean`):**
+- `Rat.AbsoluteValue.equiv_real_or_padic` (`Mathlib.NumberTheory.Ostrowski`) — Ostrowski's classification of nontrivial absolute values on ℚ as either real or p-adic. Used in `ostrowski_exhaustive_chi` to discharge the third conjunct of `GRHStructuralExhaustiveness`. Character-independent: the places of ℚ don't depend on χ, so this re-uses the same Mathlib lemma the ξ-side bridge does.
 
 All long-resident, stable lemmas — present at `v4.29.1` at the cited locations.
 Verify zero `sorry` and zero custom axioms:
@@ -79,7 +88,7 @@ Verify against Lean-core axioms only:
 
 ```bash
 lake env lean AxiomCheck.lean
-# expected output: each of 9 theorems depends on axioms:
+# expected output: each of 10 theorems depends on axioms:
 #   [propext, Classical.choice, Quot.sound]
 # CRITICAL: no `sorryAx` in any list
 ```
@@ -97,26 +106,28 @@ The following files contain attribution-vendored content from `SIDE-kernel` (Pha
 - `SIDEGRHTransfer/Voice6Vendored.lean` — `spectral_offset`, `offset_zero_iff`, `self_adjoint_constraint`, `self_adjoint_forces_half` from `SIDE-kernel/Kernel/Voice6.lean`
 - `SIDEGRHTransfer/Voice7Vendored.lean` — `topological_contribution`, `topological_constant`, `topological_no_sigma_preference`, `topological_rests`, `c7_rests_everywhere` from `SIDE-kernel/Kernel/Voice7.lean`
 
-Each file's header notes the source path, commit hash (SIDE-kernel main HEAD), and what was vendored vs skipped. This kernel is **NOT an extension** of the SIDE-kernel RH flagship; it stands alone.
+`GRHBridge.lean` is **NOT vendored** — it imports the paired voice theorems from this kernel's own `Character*.lean` files and uses `Mathlib.NumberTheory.Ostrowski` directly. It mirrors the structure of `SIDE-kernel/Bridge/TheBridgeComplete.lean` but is an original assembly for L(s, χ), not a copy.
 
+Each file's header notes the source path, commit hash (SIDE-kernel main HEAD), and what was vendored vs skipped. This kernel is **NOT an extension** of the SIDE-kernel RH flagship; it stands alone.
 ## Why Mathlib
 
 Most SIDE-* kernels are vanilla Lean 4 (no Mathlib) — by design, to keep federation pieces independent and fast. This kernel is the explicit exception: `DirichletCharacter` lives in Mathlib, and the magnitude lemma we need for Voice1 (`unit_norm_eq_one`) IS the substance. Building against Mathlib here is the *faithful* path; without it, the |χ(p)| = 1 step would have to be posited as a hypothesis, which would defeat the point. The discipline correction (Phase S.5a) refused that shortcut.
-The CharacterSymmetry / CharacterCodim / CharacterModular / CharacterSpectral / CharacterTopological substance files use `Complex.sub_re` / `Complex.one_re` / `Complex.ofReal_re` from Mathlib's complex arithmetic where needed; the (χ, χbar)-paired form signatures use `DirichletCharacter ℂ n` from the same Mathlib infrastructure.
 
+The CharacterSymmetry / CharacterCodim / CharacterModular / CharacterSpectral / CharacterTopological substance files use `Complex.sub_re` / `Complex.one_re` / `Complex.ofReal_re` from Mathlib's complex arithmetic where needed; the (χ, χbar)-paired form signatures use `DirichletCharacter ℂ n` from the same Mathlib infrastructure. `GRHBridge.lean` additionally uses `Mathlib.NumberTheory.Ostrowski` for the χ-independent places-of-ℚ classification.
 ## Cross-references
 
 - **Research-side anchors:** `FINDINGS_ADDITIONS_2026-05-21.md#grh-character-uniform` (Voice1 Euler-balance leg closed by this kernel); `FINDINGS_ADDITIONS_2026-05-21.md#monograph-grh-symmetry-loose-for-complex-chi` (§20.1 looseness fixed type-level by Voice3/Voice2 paired forms in this kernel).
-- **Compile-list targets:** `LEAN_VERIFICATIONS_TODO_v0_1.md#LV-M-6` (closed v0.1.0); `LEAN_VERIFICATIONS_TODO_v0_1.md#LV-H-6` (closed v0.2.0). **Voice3b/Voice5/Voice6 (v0.3.0) and Voice7 (v0.4.0) are not specified** in the TODO; treated as author-directed broader-plan work.
-- **Downstream open targets:** exhaustiveness/exclusion architecture transfer (required for actual GRH closure now that all 7 voices have landed); `LV-L-5` (Landau-Siegel, trivial-after-GRH).
+- **Compile-list targets:** `LEAN_VERIFICATIONS_TODO_v0_1.md#LV-M-6` (closed v0.1.0); `LEAN_VERIFICATIONS_TODO_v0_1.md#LV-H-6` (closed v0.2.0). **Voice3b/Voice5/Voice6 (v0.3.0), Voice7 (v0.4.0), and GRHBridge (v0.5.0) are not specified** in the TODO; treated as author-directed broader-plan work.
+- **Downstream open targets:** Conservation-based Route 3 analog for L(s, χ) — paired-form Conservation of Spectra delivering `(h_cons : ConservationHypothesisChi) → RiemannHypothesisChi` (the Wiles+Hales pattern, mirroring `SIDE-kernel/Bridge/ConservationBridge.lean` on the ξ side); `LV-L-5` (Landau-Siegel, trivial-after-GRH).
 - **State snapshot:** `STATE_2026-05-22.md`.
 - **Loom anchor:** `PLACE-papers/VERIFICATION_LOOM.md` rows L80-L81.
 ## Version history
 
 - **v0.1.0** (2026-05-22): Voice1 (Euler-balance) leg only. `twisted_balance_at_unramified_prime`, `twisted_balance_at_half`, vendored `balance_theorem`. 3 substantive theorems, 0 sorry, 0 custom axioms. Tag `v0.1.0` at commit `27507a1`.
 - **v0.2.0** (2026-05-28): Adds Voice3 + Voice2 paired legs via `CharacterSymmetry.lean`, with vendoring through `Voice3Vendored.lean` and `Voice2Vendored.lean`. Adds `paired_reflection_axis_invariant_iff` and `paired_conjugation_real_axis_agree_iff`. Total: 5 theorems, 0 sorry, 0 custom axioms. Closes LV-H-6. Tag `v0.2.0` at commit `61d388f`.
-- **v0.3.0** (2026-05-28): Adds Voice3b / Voice5 / Voice6 paired forms via `CharacterCodim.lean`, `CharacterModular.lean`, `CharacterSpectral.lean`, with vendoring through `Voice3bVendored.lean`, `Voice5Vendored.lean`, `Voice6Vendored.lean`. Adds `paired_cr_minimal_codim_axis_iff`, `paired_modular_S_fixed_iff`, `paired_spectral_offset_zero_iff`. **Transitively closes Voice2 codim** (Voice3b algebra = deferred Voice2 codim algebra). Total: 8 theorems, 0 sorry, 0 custom axioms. Chorus at 6-of-7 voices. Apostrophe-escape cleanup pass across all 12 files. Voice3b/Voice5/Voice6 transfers are author-directed broader-plan work beyond the LV-* spec-tracked compile-list. Tag `v0.3.0` at commit `cdf201a`.
-- **v0.4.0** (2026-05-28): Adds Voice7 (topological inertness, paired form) via `CharacterTopological.lean`, with vendoring through `Voice7Vendored.lean`. Adds `paired_topological_no_sigma_preference`. **Structurally inverted** from the other six voices: not an iff-σ=1/2 theorem but a constant-equality (topological_contribution σ = topological_contribution (1/2), both equal because the contribution is constant). Voice7 proves σ-INERTNESS — the topological class cannot place zeros at any specific σ. Completes the **7-of-7 voice chorus**. Total: 9 theorems, 0 sorry, 0 custom axioms. Remaining open work for full GRH closure: exhaustiveness/exclusion architecture transfer (separate downstream target, not a voice transfer).
+- **v0.3.0** (2026-05-28): Adds Voice3b / Voice5 / Voice6 paired forms via `CharacterCodim.lean`, `CharacterModular.lean`, `CharacterSpectral.lean`, with vendoring through `Voice3bVendored.lean`, `Voice5Vendored.lean`, `Voice6Vendored.lean`. Adds `paired_cr_minimal_codim_axis_iff`, `paired_modular_S_fixed_iff`, `paired_spectral_offset_zero_iff`. **Transitively closes Voice2 codim** (Voice3b algebra = deferred Voice2 codim algebra). Total: 8 theorems, 0 sorry, 0 custom axioms. Chorus at 6-of-7 voices. Voice3b/Voice5/Voice6 transfers are author-directed broader-plan work beyond the LV-* spec-tracked compile-list. Tag `v0.3.0` at commit `cdf201a`.
+- **v0.4.0** (2026-05-28): Adds Voice7 (topological inertness, paired form) via `CharacterTopological.lean`, with vendoring through `Voice7Vendored.lean`. Adds `paired_topological_no_sigma_preference`. **Structurally inverted** from the other six voices: not an iff-σ=1/2 theorem but a constant-equality (topological_contribution σ = topological_contribution (1/2), both equal because the contribution is constant). Voice7 proves σ-INERTNESS — the topological class cannot place zeros at any specific σ. Completes the **7-of-7 voice chorus**. Total: 9 theorems, 0 sorry, 0 custom axioms. Tag `v0.4.0` at commit `68ec127a`.
+- **v0.5.0** (2026-05-29): Adds `GRHBridge.lean` — the SIDE-method composite assembly for L(s, χ). Defines a 7-constructor `MechanismClass` enum (mirroring `SIDE-kernel/Bridge/TheBridgeComplete.lean`), the per-class `produces_offline_chi` algebraic signature, seven `cN_chi_exclusion` theorems each invoking the corresponding v0.4.0 paired voice theorem, the `none_produce_chi` combiner, the χ-independent `ostrowski_exhaustive_chi` (using `Rat.AbsoluteValue.equiv_real_or_padic` from `Mathlib.NumberTheory.Ostrowski`), the three-conjunct `GRHStructuralExhaustiveness` proposition, and the headline **`grh_structural_exhaustiveness_proved`** theorem discharging it unconditionally. Total: 10 theorems, 0 sorry, 0 custom axioms. The SIDE structural exhaustiveness statement for L(s, χ) is now kernel-verified — the "exhaustiveness/exclusion architecture transfer" named as open in v0.4.0 is closed in v0.5.0. Remaining open: Conservation-based Route 3 analog for the Wiles+Hales-pattern final assembly (v0.6.0).
 
 ## License
 
