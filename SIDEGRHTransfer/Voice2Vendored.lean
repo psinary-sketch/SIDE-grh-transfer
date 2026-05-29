@@ -43,13 +43,13 @@ def conjugate_re (sigma : Real) : Real := sigma
 
 /-- **Reflection map on the real part.** For the functional-equation
     reflection s ↦ 1 - s, the real part maps σ ↦ 1 - σ.
-    (Same function as Voice3''s `reflect`, redefined here matching the
+    (Same function as Voice3's `reflect`, redefined here matching the
     Voice2 source convention.) -/
 def reflect_re (sigma : Real) : Real := 1 - sigma
 /-- **Symmetries-agree characterization.** The conjugation and
     reflection maps agree on σ iff σ = 1/2.
 
-    This is Voice2''s `symmetries_agree_iff` vendored from
+    This is Voice2's `symmetries_agree_iff` vendored from
     `SIDE-kernel/Kernel/Voice2.lean`.  The algebraic fact is:
     σ = 1 - σ ⟺ σ = 1/2. -/
 theorem symmetries_agree_iff (sigma : Real) :

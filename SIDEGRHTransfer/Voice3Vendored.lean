@@ -31,7 +31,7 @@ import Mathlib.Tactic.Ring
 import Mathlib.Tactic.Linarith
 
 namespace SIDEGRHTransfer
-/-- **Voice3''s reflection map.** For s : ℝ, `reflect s = 1 - s`.
+/-- **Voice3's reflection map.** For s : ℝ, `reflect s = 1 - s`.
     Applied to σ-coordinates of complex s, this is the real part of
     the functional-equation reflection s ↦ 1 - s. -/
 def reflect (s : Real) : Real := 1 - s
@@ -43,7 +43,7 @@ theorem reflect_fixed_point_forward (s : Real) :
   intro h
   linarith
 /-- **Reflection-fixed-point characterization.** σ is fixed under
-    `reflect` iff σ = 1/2. This is Voice3''s `reflect_fixed_iff`
+    `reflect` iff σ = 1/2. This is Voice3's `reflect_fixed_iff`
     vendored from `SIDE-kernel/Kernel/Voice3.lean`. -/
 theorem reflect_fixed_iff (s : Real) :
     reflect s = s ↔ s = 1 / 2 := by

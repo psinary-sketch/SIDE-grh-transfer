@@ -1,7 +1,13 @@
 import SIDEGRHTransfer.CharacterTransfer
 import SIDEGRHTransfer.CharacterSymmetry
+import SIDEGRHTransfer.CharacterCodim
+import SIDEGRHTransfer.CharacterModular
+import SIDEGRHTransfer.CharacterSpectral
 #print axioms SIDEGRHTransfer.twisted_balance_at_unramified_prime
 #print axioms SIDEGRHTransfer.twisted_balance_at_half
 #print axioms SIDEGRHTransfer.balance_theorem
 #print axioms SIDEGRHTransfer.paired_reflection_axis_invariant_iff
 #print axioms SIDEGRHTransfer.paired_conjugation_real_axis_agree_iff
+#print axioms SIDEGRHTransfer.paired_cr_minimal_codim_axis_iff
+#print axioms SIDEGRHTransfer.paired_modular_S_fixed_iff
+#print axioms SIDEGRHTransfer.paired_spectral_offset_zero_iff

@@ -17,9 +17,9 @@
 
   which pairs χ with its complex conjugate χbar rather than being
   self-symmetric. The §20.2 worked example (χ mod 5, taking values
-  ±i) makes this load-bearing in the monograph''s own demonstration.
-  This file reformulates Voice3''s reflection-fixed-point theorem
-  and Voice2''s symmetry-agreement theorem in a (χ, χbar)-paired
+  ±i) makes this load-bearing in the monograph's own demonstration.
+  This file reformulates Voice3's reflection-fixed-point theorem
+  and Voice2's symmetry-agreement theorem in a (χ, χbar)-paired
   form, with character parameters typed in the signature. The
   proofs themselves collapse to the vendored algebraic content of
   Voice3 and Voice2 (since the σ-axis algebra is character-
@@ -31,8 +31,8 @@
   the full voice-set transferred AND the exhaustiveness/exclusion
   architecture transferred. This file closes the Voice3 (FE
   reflection) and Voice2 (conjugation symmetry-agreement) legs only.
-  **Federation provenance.** Voice3''s reflection algebra and
-  Voice2''s symmetry-agreement algebra are attribution-vendored
+  **Federation provenance.** Voice3's reflection algebra and
+  Voice2's symmetry-agreement algebra are attribution-vendored
   from `SIDE-kernel/Kernel/Voice3.lean` and
   `SIDE-kernel/Kernel/Voice2.lean` respectively (see
   `Voice3Vendored.lean` and `Voice2Vendored.lean` for vendor
@@ -57,10 +57,10 @@ namespace SIDEGRHTransfer
 
     The (χ, χbar) parameters are typed but unused in the proof: the
     algebraic content is character-independent and collapses to
-    Voice3''s `reflect_fixed_iff` applied to σ. The character
+    Voice3's `reflect_fixed_iff` applied to σ. The character
     signature expresses the (χ, χbar)-paired form that addresses
     the §20.1 looseness flagged by the audit.
-    Once Mathlib''s L-series functional-equation infrastructure
+    Once Mathlib's L-series functional-equation infrastructure
     matures, this theorem becomes a corollary of "ρ is a zero of
     L(·, χ) iff 1-ρ is a zero of L(·, χbar)". -/
 theorem paired_reflection_axis_invariant_iff
@@ -82,7 +82,7 @@ theorem paired_reflection_axis_invariant_iff
 
     Voice2 analog of `paired_reflection_axis_invariant_iff`. The
     character signature expresses the paired form per LV-H-6; the
-    algebra collapses to Voice2''s `symmetries_agree_iff` applied to σ. -/
+    algebra collapses to Voice2's `symmetries_agree_iff` applied to σ. -/
 theorem paired_conjugation_real_axis_agree_iff
     {n : ℕ} [NeZero n] (χ χbar : DirichletCharacter ℂ n) (σ : ℝ) :
     conjugate_re σ = reflect_re σ ↔ σ = 1 / 2 :=
