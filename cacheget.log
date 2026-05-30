@@ -1,0 +1,40 @@
+info: sideGrhTransfer: no previous manifest, creating one from scratch
+info: mathlib: cloning https://github.com/leanprover-community/mathlib4
+info: mathlib: checking out revision '5e932f97dd25535344f80f9dd8da3aab83df0fe6'
+info: toolchain not updated; already up-to-date
+info: plausible: cloning https://github.com/leanprover-community/plausible
+info: plausible: checking out revision '83e90935a17ca19ebe4b7893c7f7066e266f50d3'
+info: LeanSearchClient: cloning https://github.com/leanprover-community/LeanSearchClient
+info: LeanSearchClient: checking out revision 'c5d5b8fe6e5158def25cd28eb94e4141ad97c843'
+info: importGraph: cloning https://github.com/leanprover-community/import-graph
+info: importGraph: checking out revision '48d5698bc464786347c1b0d859b18f938420f060'
+info: proofwidgets: cloning https://github.com/leanprover-community/ProofWidgets4
+info: proofwidgets: checking out revision '4dd0959c44d1af0462bd604d0f87c5781307d709'
+info: aesop: cloning https://github.com/leanprover-community/aesop
+info: aesop: checking out revision '7152850e7b216a0d409701617721b6e469d34bf6'
+info: Qq: cloning https://github.com/leanprover-community/quote4
+info: Qq: checking out revision '707efb56d0696634e9e965523a1bbe9ac6ce141d'
+info: batteries: cloning https://github.com/leanprover-community/batteries
+info: batteries: checking out revision '756e3321fd3b02a85ffda19fef789916223e578c'
+info: Cli: cloning https://github.com/leanprover/lean4-cli
+info: Cli: checking out revision '7802da01beb530bf051ab657443f9cd9bc3e1a29'
+info: mathlib: running post-update hooks
+✔ [4/22] Built Cache.Lean (3.7s)
+✔ [5/22] Built Cache.Init (3.7s)
+✔ [6/22] Built Batteries.Data.String.Basic (19s)
+✔ [7/22] Built Batteries.Data.Array.Match (19s)
+✔ [8/22] Built Batteries.Data.String.Matcher (1.4s)
+✔ [9/22] Built Cache.IO (21s)
+✔ [10/22] Built Batteries.Data.Array.Match:c.o (5.1s)
+✔ [11/22] Built Batteries.Data.String.Basic:c.o (5.1s)
+✔ [12/22] Built Batteries.Data.String.Matcher:c.o (3.7s)
+✔ [13/22] Built Cache.Lean:c.o (21s)
+✔ [14/22] Built Cache.Init:c.o (21s)
+✔ [15/22] Built Cache.Hashing (2.5s)
+✔ [16/22] Built Cache.IO:c.o (2.4s)
+✔ [17/22] Built Cache.Hashing:c.o (814ms)
+✔ [18/22] Built Cache.Requests (6.2s)
+✔ [19/22] Built Cache.Main (3.4s)
+✔ [20/22] Built Cache.Main:c.o (935ms)
+✔ [21/22] Built Cache.Requests:c.o (4.6s)
+✔ [22/22] Built cache:exe (51s)

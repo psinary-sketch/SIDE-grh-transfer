@@ -1,5 +1,4 @@
+
 .lake/
-build*.log
-cacheget*.log
-update*.log
-*.out
+build/
+*.olean
