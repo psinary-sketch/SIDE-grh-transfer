@@ -11,16 +11,12 @@
   **STRUCTURAL INVERSION from voices 1/2/3/3b/5/6.** Where the other
   six chorus voices each prove `iff σ = 1/2` (their mechanism forces
   zeros to the critical line), Voice7 proves the topological class
-  is σ-INERT. The contribution function is constant in σ, so the
-  mechanism cannot place zeros at any specific σ — neither at 1/2
-  nor anywhere else.
+  is σ-INERT. Lifts Voice7's topological_no_sigma_preference to a (chi, chibar)-typed signature: the modelled topological
+  contribution, defined as the constant 0, has the same value at every sigma as at sigma = 1/2; that this class cannot
+  place or move zeros is the manuscript's argument, not a compiled statement, and chi, chibar are unused.
 
   This is essential for chorus exhaustiveness. SIDE closure requires
-  accounting for ALL mechanism classes. The six iff-σ=1/2 voices
-  force zeros to the line; the σ-inert Voice7 proves the residual
-  topological class cannot move them off the line. Together: every
-  mechanism is either forcing σ = 1/2 or incapable of placing a zero
-  anywhere.
+  accounting for ALL mechanism classes.
   For ξ(s), the Hadamard product / argument principle COUNTS zeros
   and RELATES locations to growth, but does not PREFER any σ. For
   L(s, χ) with complex χ, the analog requires the (χ, χbar) pairing:
@@ -53,9 +49,8 @@ namespace SIDEGRHTransfer
 
     For any pair of Dirichlet characters (χ, χbar) — intended use:
     χbar = the conjugate character of χ — the topological contribution
-    is constant in σ. Equivalently, the topological class cannot
-    distinguish σ = 1/2 from any other σ, and so cannot place zeros
-    at any specific σ.
+    is constant in σ. For any (chi, chibar), unused in the proof, the modelled topological contribution (the constant 0) has the same
+    value at sigma as at sigma = 1/2.
     The (χ, χbar) parameters are typed in the signature but unused
     in the proof: the σ-axis algebra is character-independent and
     collapses to Voice7's `topological_no_sigma_preference` applied

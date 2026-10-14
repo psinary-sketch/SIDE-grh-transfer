@@ -2,18 +2,10 @@
   SIDE-grh-transfer · GRHBridge.lean
   ===================================
 
-  **The composite GRH theorem for L(s, χ): structural exhaustiveness assembly.**
-
-  This file mirrors `SIDE-kernel/Bridge/TheBridgeComplete.lean` on the
-  ξ side — the SIDE syllogism (7 mechanism classes + per-class exclusion
-  via paired Voice theorems + Ostrowski exhaustiveness) lifted to the
-  character-paired form for L(s, χ).
-
-  **What this proves.** The χ-paired form of the SIDE structural
-  exhaustiveness statement: every mechanism class is either forcing
-  σ = 1/2 (voices 1-6 paired) or σ-inert (voice 7 paired), and
-  Ostrowski exhausts the absolute values of ℚ. This is the SIDE
-  method's voice in Lean for L(s, χ).
+  **What this proves.** Assembles, with typed but unused (chi, chibar) parameters, the character-free sigma-algebra schema of
+  TheBridgeComplete: a seven-element class type, the exclusion of each class's sigma-condition off sigma = 1/2 on the
+  defined functions, and Ostrowski's theorem; it states nothing about L(s, chi) or its zeros, and the Conservation
+  step is not proved.
   **What it does NOT prove (yet).** The Wiles+Hales-pattern final
   assembly via paired Conservation — i.e., the analog of `Bridge/
   ConservationBridge.lean` `riemann_hypothesis (h_cons :
@@ -139,7 +131,9 @@ def GRHStructuralExhaustiveness {n : ℕ} [NeZero n]
     ∃ p : ℕ, Nat.Prime p ∧ ∃ _ : Fact (Nat.Prime p),
       f.IsEquiv (Rat.AbsoluteValue.padic p))
 
-/-- **The composite GRH theorem (SIDE structural exhaustiveness form).**
+/-- The SIDE structural-exhaustiveness schema (seven defined classes, the seven sigma-condition exclusions, Ostrowski)
+with typed but unused (chi, chibar); mirrors structural_exhaustiveness_proved in TheBridgeComplete.lean; not a
+statement of GRH.
     Mirrors `structural_exhaustiveness_proved` in
     `TheBridgeComplete.lean`. -/
 theorem grh_structural_exhaustiveness_proved
