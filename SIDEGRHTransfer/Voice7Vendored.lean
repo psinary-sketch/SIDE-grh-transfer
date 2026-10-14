@@ -21,19 +21,15 @@
     • `c7_no_placement_force` (alias of topological_no_sigma_preference)
 
   Voice7 is STRUCTURALLY INVERTED relative to Voice1/2/3/3b/5/6.
-  Where the other six voices prove `iff σ = 1/2` (their mechanism
-  forces zeros to the critical line), Voice7 proves
-  σ-INERTNESS — the topological class CANNOT place zeros at any
-  specific σ.
+  Voice7's vendored content is a constant-0 contribution function and its rfl consequences (constant in sigma, equal
+  to its value at 1/2, the rest predicate at every sigma); the reading that this class cannot place zeros is the
+  manuscript's, not compiled here.
   The Hadamard product / argument principle COUNTS zeros and
   RELATES locations to growth, but it does not PREFER any σ. The
   contribution is constant in σ.
 
   This inversion is essential for chorus exhaustiveness: SIDE
-  closure requires accounting for ALL mechanism classes. Six
-  classes force σ = 1/2; the seventh proves no other class can
-  place zeros elsewhere. Together they say "every mechanism is
-  either forcing σ = 1/2 or incapable of placing a zero".
+  closure requires accounting for ALL mechanism classes.
 
   Federation provenance: vendor-with-attribution per the PLACE
   TO STAND principle.  Original author: J. York Seale.
@@ -56,9 +52,7 @@ theorem topological_constant (sigma1 sigma2 : Real) :
   unfold topological_contribution; rfl
 
 /-- **σ-inertness: the topological class has no σ-preference.**
-    Voice7's main claim — it cannot distinguish σ = 1/2 from σ ≠ 1/2;
-    it provides no force toward or away from the critical line.
-    Cannot place zeros at ANY specific σ. -/
+    The modelled topological contribution (defined as 0) has the same value at any sigma as at sigma = 1/2. -/
 theorem topological_no_sigma_preference (sigma : Real) :
     topological_contribution sigma = topological_contribution (1 / 2 : Real) := by
   unfold topological_contribution; rfl
