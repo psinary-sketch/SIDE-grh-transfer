@@ -11,7 +11,7 @@ package sideGrhTransfer where
 -- (DirichletCharacter.unit_norm_eq_one in Bounds.lean; ZMod.isUnit_prime_of_not_dvd
 -- in Data/ZMod/Basic.lean) are stable, long-resident in this Mathlib release.
 require mathlib from git
-  "https://github.com/leanprover-community/mathlib4" @ "5e932f97dd25535344f80f9dd8da3aab83df0fe6"
+  "https://github.com/leanprover-community/mathlib4" @ "de5ce8a9a66a4aa68a9bdbb35b63a06d34d9ca11"
 
 @[default_target]
 lean_lib SIDEGRHTransfer where
